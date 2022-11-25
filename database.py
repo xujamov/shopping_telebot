@@ -190,11 +190,10 @@ def search_product(search_text):
     products = cursor.fetchall()
     return products
 
-
-# add_product("cat2", "this is good cat item", 200, "images/item_1.png", 12)
-# new_user("1111", "Max2", None, "None")
+# add_category("badiiy")
+add_product("Gazon Milliy", "Yangi, zamonaviy, qulay gazon", 5000, "images/gazon_milliy.png", 1)
+# new_user("1600581210", "Doniyor", None, "None")
 # pr = get_products()
-# print(get_products())
 # print(get_cart_by_id(778508362))
 # new_order(778508362, "Bla Bla Bla", "items", "12.12.2020", 1, "None")
 # print(get_orders_by_id(778508362))

@@ -46,13 +46,12 @@ def creating_unique_catalog(message, call):
 
 def sending_start_message(bot, message, types):
     markup = creating_start_markup_buttons(types)
-    with open("images/greeting/AnimatedSticker.tgs", "rb") as sticker:
-        bot.send_sticker(message.chat.id, sticker)
+    with open("images/greeting/ronaldo.gif", "rb") as sticker:
+        bot.send_animation(message.chat.id, sticker)
     bot.send_message(message.chat.id, 'Привет, {0.first_name}, рады '.format(message.from_user) +
-                     'видеть тебя в нашем боте!\nЭто магазин <b>' +
-                     '{0.first_name}</b>.\nВыбирай товары в каталоге,'.format(bot.get_me()) +
-                     ' а затем оформляй заказ в ' +
-                     'корзине :)', parse_mode='html', reply_markup=markup)
+                     'видеть тебя в нашем боте!\nЭто Бот <b>' +
+                     '{0.first_name}</b>.\n'.format(bot.get_me()) +
+                     'Собираемся на футбол с новыми технологиями.', parse_mode='html', reply_markup=markup)
 
 
 def start_func(message):
@@ -193,12 +192,12 @@ def catalog_update(bot, call, types):
 
 
 def catalog_markup_create(call, products, current_prod_catalog, last_prod, types):
-    products_in_cart = how_many_in_cart(call, products, current_prod_catalog)
     markup = types.InlineKeyboardMarkup(row_width=1)
-    item = types.InlineKeyboardButton(products_in_cart + inscriptions.currency + " " +
+    item = types.InlineKeyboardButton(inscriptions.add_to_cart + " " +
+                                      products[current_prod_catalog][1] + " - " +
                                       str(products[current_prod_catalog][3]) + " " +
-                                      inscriptions.add_to_cart + " " +
-                                      products[current_prod_catalog][1], callback_data="to_cart")
+                                      inscriptions.currency
+                                      , callback_data="to_cart")
     markup.add(item)
     markup.row_width = 3
     item1 = types.InlineKeyboardButton("←", callback_data="prev")
