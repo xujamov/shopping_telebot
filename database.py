@@ -18,8 +18,9 @@ with conn:
                 primary key,
             first_name VARCHAR not null,
             username VARCHAR,
-            phone_number VARCHAR,
+            phone_number VARCHAR not null,
             cart TEXT,
+            age INTEGER not null,
             is_making_order BOOLEAN,
             is_operator BOOLEAN,
             is_administrator BOOLEAN
@@ -36,7 +37,7 @@ with conn:
         """)
 
     # Creating products table if not exists
-    cursor.executescript("""CREATE TABLE IF NOT EXISTS products
+    cursor.executescript("""CREATE TABLE IF NOT EXISTS grasses
         (
              id INTEGER not null
                 primary key autoincrement,
@@ -98,7 +99,7 @@ def add_category(title):
 
 
 def add_product(title, description, price, image, category_id):
-    cursor.execute("""INSERT INTO products (title, description, price, image, category_id, bot_shows) 
+    cursor.execute("""INSERT INTO grasses (title, description, price, image, category_id, bot_shows) 
     VALUES (?, ?, ?, ?, ?, ?)""", (title, description, price, image, category_id, 1))
     conn.commit()
 
@@ -109,17 +110,17 @@ def get_categories():
 
 
 def get_products():
-    cursor.execute("SELECT * FROM products")
+    cursor.execute("SELECT * FROM grasses")
     return cursor.fetchall()
 
 
 def get_product_ids():
-    cursor.execute("SELECT id FROM products")
+    cursor.execute("SELECT id FROM grasses")
     return cursor.fetchall()
 
 
 def get_product_by_id(prod_id):
-    cursor.execute("SELECT * FROM products WHERE id LIKE ?", [prod_id])
+    cursor.execute("SELECT * FROM grasses WHERE id LIKE ?", [prod_id])
     product = cursor.fetchall()
     return product[0]
 
@@ -185,13 +186,13 @@ def set_phone_number_to_user(user_id, phone):
 
 
 def search_product(search_text):
-    cursor.execute("SELECT * FROM products WHERE title LIKE ?", [search_text])
+    cursor.execute("SELECT * FROM grasses WHERE title LIKE ?", [search_text])
     log.debug(f"Search: {search_text}")
     products = cursor.fetchall()
     return products
 
 # add_category("badiiy")
-add_product("Gazon Milliy", "Yangi, zamonaviy, qulay gazon", 5000, "images/gazon_milliy.png", 1)
+add_product("Gazon Milliy", "Yangi, zamonaviy, qulay gazon", 5000, "images/gazon_1.jpg", 1)
 # new_user("1600581210", "Doniyor", None, "None")
 # pr = get_products()
 # print(get_cart_by_id(778508362))

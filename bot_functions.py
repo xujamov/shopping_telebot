@@ -46,7 +46,7 @@ def creating_unique_catalog(message, call):
 
 def sending_start_message(bot, message, types):
     markup = creating_start_markup_buttons(types)
-    with open("images/greeting/ronaldo.gif", "rb") as sticker:
+    with open("images/greeting/messi.gif", "rb") as sticker:
         bot.send_animation(message.chat.id, sticker)
     bot.send_message(message.chat.id, 'Привет, {0.first_name}, рады '.format(message.from_user) +
                      'видеть тебя в нашем боте!\nЭто Бот <b>' +
@@ -88,14 +88,12 @@ def checking_messages(bot, message, types):
             making_order_group[message.chat.id] = [
                 {
                     "city": True,
-                    "number_of_departament": False,
                     "full_name": False,
                     "number": False,
                     "payment_system": False
                 },
                 {
                     "city": None,
-                    "number_of_departament": None,
                     "full_name": None,
                     "number": None,
                     "payment_system": None
@@ -123,13 +121,9 @@ def checking_messages(bot, message, types):
 
 
 def checking_order_creating_steps(bot, message, types, steps, params):
-    if not steps["number_of_departament"]:
-        bot.send_message(message.chat.id, inscriptions.number_of_departament)
-        params["city"] = message.text
-        steps["number_of_departament"] = True
-    elif not steps["full_name"]:
+    if not steps["full_name"]:
         bot.send_message(message.chat.id, inscriptions.full_name)
-        params["number_of_departament"] = message.text
+        params["city"] = message.text
         steps["full_name"] = True
     elif not steps["number"]:
         bot.send_message(message.chat.id, inscriptions.number)
